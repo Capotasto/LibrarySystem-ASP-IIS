@@ -20,7 +20,7 @@
     <div id="mainmenu">
       <ul>
         <li class="firstListItem"><a href="BookList.asp"><font color="black">Book List</font></a></li>
-        <li><a href="addbook.html">Add Book</a></li>
+        <li><a href="addbook.asp">Add Book</a></li>
           <!--  <li><a href="gallery.html">Gallery Room</a></li>
         <li><a href="blog.html">Blog Page</a></li>
         <li><a href="contact.html">Contact Us</a></li> -->
@@ -33,20 +33,16 @@
         <%
         Dim Con
         Dim RS
-        'Dim DB_PATH
-        'DB_PATH="\\Mac\Home\Documents\My Web Sites\WebSite1\project\Library.mdb"
-        Response.Write DB_PATH
         Set Con = Server.CreateObject("ADODB.Connection")
         Set RS = Server.CreateObject("ADODB.Recordset")
         Con.Provider = "Microsoft.Jet.OLEDB.4.0"
-        'Con.ConnectionString = "C:\Users\norio.egi\Documents\My Web Sites\WebSite1\project\Library.mdb"
-        Con.ConnectionString = "\\Mac\Home\Documents\My Web Sites\WebSite1\project\Library.mdb"
+        Con.ConnectionString = DB_PATH
         Con.Open
         Dim adopenDynamic
         Dim adLockOptimistic
         adopenDynamic = 2
         adLockOptimistic = 3
-        Rs.open "SELECT b.image, b.title, a.name1, b.samary, b.date_published, p.name, b.pages, l.lang_name, b.weight, g.name FROM ((((books  AS b INNER JOIN authors AS a ON b.author_id = a.author_id) INNER JOIN publishers AS p ON b.pub_id = p.pub_id) INNER JOIN  languages  AS l ON b.lang_id = l.lang_id) INNER JOIN  genres AS g ON b.genre_id = g.genre_id)", _
+        Rs.open "SELECT b.image, b.title, a.name1, b.summary, b.date_published, p.name, b.pages, l.lang_name, b.weight, g.name FROM ((((books  AS b INNER JOIN authors AS a ON b.author_id = a.author_id) INNER JOIN publishers AS p ON b.pub_id = p.pub_id) INNER JOIN  languages  AS l ON b.lang_id = l.lang_id) INNER JOIN  genres AS g ON b.genre_id = g.genre_id)", _
                    Con, adopenDynamic, adLockOptimistic
         'Response.write " So far the connection stuff is all right"
         Rs.MoveFirst
@@ -69,7 +65,7 @@
               Response.Write "<p class='weight'>Weight: "+ CStr(RS.Fields("weight")) +" g</p>"
             Response.Write "</div>"
             Response.Write "<div class='bottom_inside'>"
-              Response.Write "<p class='summary'>"+ RS.Fields("samary") +"</p>"
+              Response.Write "<p class='summary'>"+ RS.Fields("summary") +"</p>"
             Response.Write "</div>"
           Response.Write "</div>"
         Response.Write "</div>"

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -80,22 +80,17 @@
             </select>
           </TD>
        	</Tr>
-
-
-
-
-
-
-
-       	<TR>
+       	<Tr>
        		<TD><input type ="Submit" Value = "Add info to table"></TD>
-       	</TR>
+            <% 
+                Dim message
+                message = Request.Cookies("message") 
+                Response.Write message
+            %>
+       	</Tr>
          </form>
          </table>
          <hr/>
-
-
-
         <table>
           <tr>
             <td>

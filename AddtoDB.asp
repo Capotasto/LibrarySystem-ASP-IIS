@@ -1,22 +1,18 @@
+<!--#include file="env.asp"-->
 <%
 Dim Con
 Dim RS
 Set Con = Server.CreateObject("ADODB.Connection")
 Set RS = Server.CreateObject("ADODB.Recordset")
 Con.Provider = "Microsoft.Jet.OLEDB.4.0"
-'Con.ConnectionString = "C:\Users\norio.egi\Documents\My Web Sites\WebSite1\project\Library.mdb"
-Con.ConnectionString = "\\Mac\Home\Documents\My Web Sites\WebSite1\project\Library.mdb"
+Con.ConnectionString = DB_PATH
 Con.Open
 Dim adopenDynamic
 Dim adLockOptimistic
 adopenDynamic = 2
 adLockOptimistic = 3
-'Rs.open "Select * from students", Con, adopenDynamic, adLockOptimistic
-Rs.open "Select * f", Con, adopenDynamic, adLockOptimistic
-'Response.write " So far the connection stuff is all right"
-Rs.MoveFirst
-'Reading data from the form
 
+'Get values user has enterd to the form
 Dim varTitle, varAuthor, varSummary, varPublisher, varPublishedDate, varLanguage, varWeight, varGenre
 varTitle = Request.Form ("title")
 varAuthor = Request.Form ("author")
@@ -27,67 +23,60 @@ varLanguage = Request.Form("language")
 varWeight = Request.Form("weight")
 varGenre = Request.Form("genre")
 
-'Response.Write varTitle
-'Response.Write "<BR>"
-'Response.Write varAuthor
-'Response.Write "<BR>"
-'Response.Write varPublisher
-'Response.Write "<BR>"
-'Response.Write varPublishedDate
-'Response.Write "<BR>"
-'Response.Write varLanguage
-'Response.Write "<BR>"
-'Response.Write varWeight
-'Response.Write "<BR>"
-'Response.Write varGenre
-'Response.Write "<BR>"
-
+'check the authors table
+Dim authorId
+Rs.open "SELECT * FROM authors WHERE name1 = '" + varAuthor + "'", Con, adopenDynamic, adLockOptimistic
 'Looking after ADO Empty Table bug
 If Rs.eof = True And Rs.BOF = True Then
-' The books table is Empty
-
-
+	' The author table is Empty
+	Rs.AddNew  ' Creates a new empty row for me and sets the record pointer to the empty record
+	'newAuthorId = Rs("author_id").value
+	Rs.Fields ("name1") = varAuthor
+	Rs.Update
 End If
-'Check the title is dupulicated
-Dim titleDuplicated As Boolean
-titleDuplicated = false
-Do While Not RS.EOF
-If RS.Fields("title") = varTitle Then
-	titleDuplicated = true
-End if
-Rs.MoveNext
-Loop
+authorId = Rs("author_id").value
+Rs.close
 
+'Response.Write "authorId: " + CStr(authorId) + "<br/>"
+
+'check the publishers table
+Dim publisherId
+Rs.open "Select * from publishers where name ='"+ varPublisher +"'", Con, adopenDynamic, adLockOptimistic
 'Looking after ADO Empty Table bug
 If Rs.eof = True And Rs.BOF = True Then
-' The table is Empty
-	Rs.AddNew  ' Creates a new empty row for me and sets the record pointer to the empty record
-	Rs.Fields ("ID") = VarID
-	Rs.Fields ("FirstName") = VarFirstName
-	Rs.Fields ("SurName") = VarSurName
-	Rs.Fields ("Age") = VarAge
-	Rs.Fields ("Nationality") = VarNationality
-	Rs.Update
+	Rs.AddNew 
+    Rs.Fields("name") = varPublisher
+    Rs.Update
 End If
-'look for duplicate record
-Dim CriteriaString
-CriteriaString = "ID = " + VarID
-'Response.Write CriteriaString
-Rs.Find CriteriaString
-If Rs.Eof Then
-	' Record Not found
-	Rs.AddNew  ' Creates a new empty row for me and sets the record pointer to the empty record
-	Rs.Fields ("ID") = VarID
-	Rs.Fields ("FirstName") = VarFirstName
-	Rs.Fields ("SurName") = VarSurName
-	Rs.Fields ("Age") = VarAge
-	Rs.Fields ("Nationality") = VarNationality
-	Rs.Update
-	Response.Write "Record Added Successfully, Please go back to add another record"
+publisherId = Rs("pub_id").value
+Rs.Close
+
+'Response.Write "publisherId: " + CStr(publisherId) + "<br/>"
+
+'check the books table
+Dim booksId
+Rs.open "Select * from books where title ='"+ varTitle +"'", Con, adopenDynamic, adLockOptimistic
+'Looking after ADO Empty Table bug
+If Rs.eof = True And Rs.BOF = True Then
+    Rs.AddNew
+    Rs.Fields("title") = varTitle
+    Rs.Fields("author_id") = authorId
+    Rs.Fields("summary") = varSummary
+    Rs.Fields("pub_id") = publisherId
+    Rs.Fields("date_published") = varPublishedDate
+    Rs.Fields("lang_id") = varLanguage
+    Rs.Fields("weight") = varWeight
+    Rs.Fields("genre_id") = varGenre
+    Rs.Update
+
+    Response.Cookies("message") = "Book addition is Succeeded!."
+    Response.Redirect "./addbook.asp"
+
 Else
-	' Record found, It's Duplicate
-	Response.Write "Duplicate Record"
-	Response.Write "<br>"
-	Response.Write "Please go back and modify your ID"
-End if
+    Response.Cookies("message") = "This book has already added to the Library."
+    Response.Redirect "./addbook.asp"
+
+End If
+booksId = Rs("book_id").value
+Rs.Close
 %>
