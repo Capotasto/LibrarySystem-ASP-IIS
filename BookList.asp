@@ -37,6 +37,7 @@
         alertMsg = Request.Cookies("alert")
         If alertMsg <> "" Then
           Response.Write("<script>alert('"+ alertMsg +"')</script>")
+          Response.Cookies("alert") = ""
         End If
         Dim Con
         Dim RS
