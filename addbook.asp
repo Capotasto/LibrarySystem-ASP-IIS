@@ -11,7 +11,7 @@
     <!---header--------------------------------------------------->
     <div id="header">
       <p>
-        <a href="./index.html">
+        <a href="./BookList.asp">
           <img src="img/logo.png" alt="" />
         </a>
       </p>
@@ -20,7 +20,7 @@
     <div id="mainmenu">
       <ul>
         <li class="firstListItem"><a href="BookList.asp">Book List</a></li>
-        <li><a href="addbook.html"><font color="black">Add Book</font></a></li>
+        <li><a href="AddBook.asp"><font color="black">Add Book</font></a></li>
           <!--  <li><a href="gallery.html">Gallery Room</a></li>
         <li><a href="blog.html">Blog Page</a></li>
         <li><a href="contact.html">Contact Us</a></li> -->
@@ -82,10 +82,14 @@
        	</Tr>
        	<Tr>
        		<TD><input type ="Submit" Value = "Add info to table"></TD>
-            <% 
+            <%
+                Dim screen
                 Dim message
-                message = Request.Cookies("message") 
+                screen = Request.Cookies("screen")
+                message = Request.Cookies("message")
                 Response.Write message
+                Response.Cookies("screen") = "addbook.asp"
+                Response.Cookies("message") = "<br/>"
             %>
        	</Tr>
          </form>

@@ -37,21 +37,17 @@ End If
 authorId = Rs("author_id").value
 Rs.close
 
-'Response.Write "authorId: " + CStr(authorId) + "<br/>"
-
 'check the publishers table
 Dim publisherId
 Rs.open "Select * from publishers where name ='"+ varPublisher +"'", Con, adopenDynamic, adLockOptimistic
 'Looking after ADO Empty Table bug
 If Rs.eof = True And Rs.BOF = True Then
-	Rs.AddNew 
+	Rs.AddNew
     Rs.Fields("name") = varPublisher
     Rs.Update
 End If
 publisherId = Rs("pub_id").value
 Rs.Close
-
-'Response.Write "publisherId: " + CStr(publisherId) + "<br/>"
 
 'check the books table
 Dim booksId
@@ -61,6 +57,7 @@ If Rs.eof = True And Rs.BOF = True Then
     Rs.AddNew
     Rs.Fields("title") = varTitle
     Rs.Fields("author_id") = authorId
+    Rs.Fields("image") = "NoImage.png"
     Rs.Fields("summary") = varSummary
     Rs.Fields("pub_id") = publisherId
     Rs.Fields("date_published") = varPublishedDate
@@ -69,10 +66,12 @@ If Rs.eof = True And Rs.BOF = True Then
     Rs.Fields("genre_id") = varGenre
     Rs.Update
 
+    Response.Cookies("screen") = "AddtoDB.asp"
     Response.Cookies("message") = "Book addition is Succeeded!."
     Response.Redirect "./addbook.asp"
 
 Else
+    Response.Cookies("screen") = "AddtoDB.asp"
     Response.Cookies("message") = "This book has already added to the Library."
     Response.Redirect "./addbook.asp"
 

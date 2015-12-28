@@ -65,8 +65,54 @@ hr.artile_border {
 
 /*---------------------------------------------------*/
 
+
 /*----BookList-----------------------------------------------*/
 
+.list_item {
+  width: 950px;
+  height: 450px;
+}
+.left_side {
+  float: left;
+  width: 300px;
+  margin: 10px 20px;
+}
+.left_side img {
+  width: 300px;
+  height: 400px;
+}
+.right_side {
+  width: 600px;
+  float: left;
+  overflow: hidden;
+}
+.left_inside {
+  width: 300px;
+  float: left;
+}
+.right_inside {
+  width: 300px;
+  float: right;
+}
+.bottom_inside {
+  width: 600px;
+  clear: both;
+}
+.title {
+  font-size: 28px;
+  margin-top: 9px;
+  margin-bottom: 0;
+}
+.author {
+  margin-top: 0;
+}
+.form_edit{
+  float: left;
+}
+
+.form_remote {
+  float: right;
+}
 
 /* ID */
 
@@ -156,21 +202,22 @@ hr.artile_border {
   width: 100%;
   text-align: center;
 }
-
-#top_page_content p{
+#top_page_content p {
   line-height: 150%;
 }
-
 #top_page_content table {
   width: 100%;
   table-layout: fixed;
 }
-#top_page_content img {
-  width: 300px;
-}
+
 #top_page_content a:hover {
   opacity: 0.6;
 }
+
+#add_content img{
+  width: 300px;
+}
+
 
 /*--------about_content-------------------------------------------*/
 
@@ -181,20 +228,16 @@ hr.artile_border {
   padding-bottom: 220px;
   overflow: hidden;
 }
-
 #about_this_site img {
   float: right;
 }
-
 #about_this_site p {
   text-align: justify;
   line-height: 150%;
 }
-
 #about_author {
   clear: both;
 }
-
 #about_author img {
   float: left;
   width: 30%;
@@ -202,12 +245,10 @@ hr.artile_border {
   margin: 0 10px;
   padding-right: 100px;
 }
-
 #about_author p {
   text-align: justify;
   line-height: 150%;
 }
-
 #about_social table {
   table-layout: fixed;
   width: 100%;
@@ -237,64 +278,52 @@ hr.artile_border {
 
 /*--------contact_content-------------------------------------------*/
 
-#contact_content{
+#contact_content {
   width: 980px;
   height: auto;
   margin: 10px auto;
   min-height: 500px;
   padding-bottom: 220px;
-
 }
-
 #contact_content form {
-    margin: 0 auto;
-    width: 90%;
-    padding: 1em;
-    border: 1px solid #CCC;
-    border-radius: 1em;
+  margin: 0 auto;
+  width: 90%;
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
 }
-
 #contact_fieldset {
   padding: 10px 100px;
 }
-
 #contact_content form div + div {
- margin-top: 1em;
+  margin-top: 1em;
 }
-
 #contact_content label {
   display: inline-block;
   width: 150px;
   text-align: left;
 }
-
 #contact_content input, textarea {
   width: 300px;
   border: 1px solid #999;
-
 }
-
 #contact_content input:focus, textarea:focus {
   border-color: #000;
 }
-
 #contact_content textarea {
   vertical-align: top;
   height: 5em;
   resize: vertical;
 }
-
 #contact_getder input {
-    width: auto;
-    margin: 0 5px;
+  width: auto;
+  margin: 0 5px;
 }
-
 #contac_color input {
-    width: auto;
-    margin: 5px;
+  width: auto;
+  margin: 5px;
 }
-
-#contact_button button{
+#contact_button button {
   float: right;
 }
 
@@ -307,18 +336,15 @@ hr.artile_border {
   padding-bottom: 220px;
   text-align: center;
 }
-
-#gallery_content table{
+#gallery_content table {
   width: 100%;
   table-layout: fixed;
 }
-
-#gallery_content img{
+#gallery_content img {
   width: 200px;
   margin: 10px;
 }
-
-#gallery_content img:hover{
+#gallery_content img:hover {
   opacity: 0.6;
 }
 

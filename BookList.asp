@@ -20,7 +20,7 @@
     <div id="mainmenu">
       <ul>
         <li class="firstListItem"><a href="BookList.asp"><font color="black">Book List</font></a></li>
-        <li><a href="addbook.asp">Add Book</a></li>
+        <li><a href="AddBook.asp">Add Book</a></li>
           <!--  <li><a href="gallery.html">Gallery Room</a></li>
         <li><a href="blog.html">Blog Page</a></li>
         <li><a href="contact.html">Contact Us</a></li> -->
@@ -31,6 +31,8 @@
       <div id="top_page_content">
         <!--#include file="env.asp"-->
         <%
+        Response.Cookies("screen") = "BookList.asp"
+        Response.Cookies("message") = "<br/>"
         Dim Con
         Dim RS
         Set Con = Server.CreateObject("ADODB.Connection")
@@ -42,7 +44,7 @@
         Dim adLockOptimistic
         adopenDynamic = 2
         adLockOptimistic = 3
-        Rs.open "SELECT b.image, b.title, a.name1, b.summary, b.date_published, p.name, b.pages, l.lang_name, b.weight, g.name FROM ((((books  AS b INNER JOIN authors AS a ON b.author_id = a.author_id) INNER JOIN publishers AS p ON b.pub_id = p.pub_id) INNER JOIN  languages  AS l ON b.lang_id = l.lang_id) INNER JOIN  genres AS g ON b.genre_id = g.genre_id)", _
+        Rs.open "SELECT b.book_id, b.image, b.title, a.name1, b.summary, b.date_published, p.name, b.pages, l.lang_name, b.weight, g.name FROM ((((books  AS b INNER JOIN authors AS a ON b.author_id = a.author_id) INNER JOIN publishers AS p ON b.pub_id = p.pub_id) INNER JOIN  languages  AS l ON b.lang_id = l.lang_id) INNER JOIN  genres AS g ON b.genre_id = g.genre_id)", _
                    Con, adopenDynamic, adLockOptimistic
         'Response.write " So far the connection stuff is all right"
         Rs.MoveFirst
@@ -67,13 +69,24 @@
             Response.Write "<div class='bottom_inside'>"
               Response.Write "<p class='summary'>"+ RS.Fields("summary") +"</p>"
             Response.Write "</div>"
+            <!-- Edit button -->
+            Response.Write "<FORM class='form_edit' ACTION='EditBook.asp' METHOD='POST'>"
+            Response.Write "<INPUT type='hidden' NAME='editId' VALUE= '" + CStr(RS.Fields("book_id")) + "'>"
+            Response.Write "<INPUT TYPE='submit' VALUE='Edit'>"
+            Response.Write "</FORM>"
+            <!-- Remove button -->
+            Response.Write "<FORM class='form_remove' ACTION='deleteDB.asp' METHOD='POST'>"
+            Response.Write "<INPUT type='hidden' NAME='remoteId' VALUE= '" + CStr(RS.Fields("book_id")) + "'>"
+            Response.Write "<INPUT  TYPE='submit' VALUE='Remove'>"
+            Response.Write "</FORM>"
           Response.Write "</div>"
         Response.Write "</div>"
         Response.Write "<hr/>"
         Rs.MoveNext
         Loop
         %>
-        <table>
+        <!---add--------------------------------------------------->
+        <table id="add_content">
           <tr>
             <td>
               <a href="#">
