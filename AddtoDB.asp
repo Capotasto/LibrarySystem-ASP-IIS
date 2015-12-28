@@ -67,7 +67,7 @@ If Rs.eof = True And Rs.BOF = True Then
     Rs.Update
 
     Response.Cookies("screen") = "AddtoDB.asp"
-    Response.Cookies("message") = "Book addition is Succeeded!."
+    Response.Cookies("message") = "Book addition is Succeeded!"
     Response.Redirect "./addbook.asp"
 
 Else

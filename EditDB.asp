@@ -74,7 +74,7 @@ Else
     Rs.Fields("genre_id") = varGenre
     Rs.Update
     Response.Cookies("screen") = "EditDB.asp"
-    Response.Cookies("message") = "This book's information already changed."
+    Response.Cookies("message") = "Book editting is Succeeded!"
     Response.Cookies("bookId") = CStr(varId)
     Response.Redirect "./EditBook.asp"
 

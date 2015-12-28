@@ -33,6 +33,11 @@
         <%
         Response.Cookies("screen") = "BookList.asp"
         Response.Cookies("message") = "<br/>"
+        Dim alertMsg
+        alertMsg = Request.Cookies("alert")
+        If alertMsg <> "" Then
+          Response.Write("<script>alert('"+ alertMsg +"')</script>")
+        End If
         Dim Con
         Dim RS
         Set Con = Server.CreateObject("ADODB.Connection")

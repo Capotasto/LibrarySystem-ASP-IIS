@@ -58,11 +58,7 @@
 
         <table >
          <Form Method = "post" Action = "EditDB.asp">
-        <Tr>
-          <tD>Book ID :</TD>
-          <TD><input disabled = "disabled" type= "text" Name = "bookId" ID = "bookId" value = '<% Response.Write Rs.Fields("book_id") %>' ></TD>
-          <input type="hidden" name="bookId" Id="bookId" value='<% Response.Write Rs.Fields("book_id") %>' >
-        </Tr>
+        <input type="hidden" name="bookId" Id="bookId" value='<% Response.Write Rs.Fields("book_id") %>' >
         <Tr>
           <tD>Book Image :</TD>
           <TD><input type= "text" Name = "image" ID = "image" value = '<% Response.Write Rs.Fields("image") %>' ></TD>
